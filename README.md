@@ -1,3 +1,3 @@
 # Inspire KG
 
-Bla
+Coming soon
