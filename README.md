@@ -1,3 +1,0 @@
-# Inspire KG
-
-Coming soon
