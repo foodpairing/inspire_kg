@@ -215,7 +215,7 @@ SELECT ?ingredient_name ?texture_label ?sensory_value WHERE {
         skos:prefLabel ?ingredient_name ;
         :hasTexture ?t .
     ?t a :Texture ;
-        :sensoryValue ?sensory_value ;
+        :sensoryValue ?sensory_value ; # texture is true/false
         :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
         skos:prefLabel ?texture_label .
@@ -237,7 +237,7 @@ SELECT ?ingredient_name ?trigeminal_label ?sensory_value WHERE {
         skos:prefLabel ?ingredient_name ;
         :hasTrigeminal ?t .
     ?t a :Trigeminal ;
-        :sensoryValue ?sensory_value ;
+        :sensoryValue ?sensory_value ; # trigeminal is true/false
         :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
         skos:prefLabel ?trigeminal_label .
