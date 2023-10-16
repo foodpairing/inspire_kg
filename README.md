@@ -250,7 +250,7 @@ ORDER BY ?ingredient_name DESC(?sensory_value)
 ### Functional Benefits
 
 <details>
- <summary>Retrieve functional benefits per ingredient</summary>
+ <summary>List of functional benefits per ingredient</summary>
 
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
