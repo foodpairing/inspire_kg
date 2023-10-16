@@ -14,7 +14,8 @@ our [in-house Enterprise KG](https://www.foodpairing.com/industry/research-funda
 
 ## Relevant Resources
 
-The Inspire KG is freely available under [CC BY 4.0 DEED](LICENSE.md) from [here](inspire.ttl). Its specification is
+The Inspire KG is freely available under [CC BY 4.0 DEED](LICENSE.md) for download from [here](inspire.ttl). Its
+specification is
 available [here](https://foodpairing.github.io/inspire_kg/), while the rest of this page presents some more technical
 use cases.
 
@@ -81,7 +82,8 @@ SELECT ?ingredient_name ?ingredient_definition ?ingredient_category_name ?wikida
         skos:definition ?ingredient_definition ;
         :hasIngredientCategory/skos:prefLabel ?ingredient_category_name ;
         rdfs:seeAlso ?wikidata_link .
-} ORDER BY ?ingredient_name
+}
+ORDER BY ?ingredient_name
 ```
 
 </details>
@@ -95,11 +97,12 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 SELECT ?ingredient_name ?ingredient_definition ?ingredient_category_name WHERE {
     ?i a :Ingredient ;
-       skos:prefLabel ?ingredient_name ;
-       skos:definition ?ingredient_definition ;
-       :hasIngredientCategory/skos:prefLabel ?ingredient_category_name .
+        skos:prefLabel ?ingredient_name ;
+        skos:definition ?ingredient_definition ;
+        :hasIngredientCategory/skos:prefLabel ?ingredient_category_name .
     VALUES ?ingredient_category_name { "Pome Fruits"@en "Tropical Fruits"@en }
-} ORDER BY ?ingredient_name
+}
+ORDER BY ?ingredient_name
 ```
 
 </details>
@@ -113,12 +116,14 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 SELECT ?ingredient_name WHERE {
     ?i a :Ingredient ;
-       skos:prefLabel ?ingredient_name ;
-       skos:definition ?ingredient_definition ;
-       :hasIngredientCategory ?c .
+        skos:prefLabel ?ingredient_name ;
+        skos:definition ?ingredient_definition ;
+        :hasIngredientCategory ?c .
+    # Retrieve ingredients no matter how deep in the categories taxonomy they are
     ?c a :IngredientCategory ;
-       skos:broader*/skos:prefLabel "Fruit Category"@en .
-} ORDER BY ?ingredient_name
+        skos:broader*/skos:prefLabel "Fruit Category"@en .
+}
+ORDER BY ?ingredient_name
 ```
 
 </details>
@@ -135,17 +140,18 @@ SELECT ?ingredient_name ?water_footprint WHERE {
     {
         SELECT * WHERE {
             ?i a :Ingredient ;
-               skos:prefLabel ?ingredient_name ;
-               rdfs:seeAlso ?wikidata .
+                skos:prefLabel ?ingredient_name ;
+                rdfs:seeAlso ?wikidata .
             BIND(URI(?wikidata) AS ?wikidataLink)
         }
     }
-    
+
     # Retrieve water footprint per ingredient (wherever available) from Wikidata
     SERVICE <https://query.wikidata.org/sparql> {
         ?wikidataLink <http://www.wikidata.org/prop/direct/P6000> ?water_footprint .
     }
-} ORDER BY ?ingredient_name ?water_footprint
+}
+ORDER BY ?ingredient_name ?water_footprint
 ```
 
 </details>
@@ -158,17 +164,19 @@ SELECT ?ingredient_name ?water_footprint WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_name ?aroma_label ?sensory_value ?aroma_intensity WHERE {
     ?i a :Ingredient ;
-       skos:prefLabel ?ingredient_name ;
-       :hasAroma ?a .
+        skos:prefLabel ?ingredient_name ;
+        :hasAroma ?a .
     ?a a :Aroma ;
-       :sensoryValue ?sensory_value ;
-       :hasSensoryDescriptor ?d .
+        :sensoryValue ?sensory_value ;
+        :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
-       skos:prefLabel ?aroma_label ;
-       :aromaIntensity ?aroma_intensity .
-} ORDER BY ?ingredient_name DESC(?sensory_value)
+        skos:prefLabel ?aroma_label ;
+        :aromaIntensity ?aroma_intensity .
+}
+ORDER BY ?ingredient_name DESC(?sensory_value)
 ```
 
 </details>
@@ -179,6 +187,7 @@ SELECT ?ingredient_name ?aroma_label ?sensory_value ?aroma_intensity WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_name ?taste_label ?sensory_value WHERE {
     ?i a :Ingredient ;
         skos:prefLabel ?ingredient_name ;
@@ -188,7 +197,8 @@ SELECT ?ingredient_name ?taste_label ?sensory_value WHERE {
         :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
         skos:prefLabel ?taste_label .
-} ORDER BY ?ingredient_name DESC(?sensory_value)
+}
+ORDER BY ?ingredient_name DESC(?sensory_value)
 ```
 
 </details>
@@ -199,6 +209,7 @@ SELECT ?ingredient_name ?taste_label ?sensory_value WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_name ?texture_label ?sensory_value WHERE {
     ?i a :Ingredient ;
         skos:prefLabel ?ingredient_name ;
@@ -208,7 +219,8 @@ SELECT ?ingredient_name ?texture_label ?sensory_value WHERE {
         :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
         skos:prefLabel ?texture_label .
-} ORDER BY ?ingredient_name DESC(?sensory_value)
+}
+ORDER BY ?ingredient_name DESC(?sensory_value)
 ```
 
 </details>
@@ -219,6 +231,7 @@ SELECT ?ingredient_name ?texture_label ?sensory_value WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_name ?trigeminal_label ?sensory_value WHERE {
     ?i a :Ingredient ;
         skos:prefLabel ?ingredient_name ;
@@ -228,7 +241,8 @@ SELECT ?ingredient_name ?trigeminal_label ?sensory_value WHERE {
         :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
         skos:prefLabel ?trigeminal_label .
-} ORDER BY ?ingredient_name DESC(?sensory_value)
+}
+ORDER BY ?ingredient_name DESC(?sensory_value)
 ```
 
 </details>
@@ -241,13 +255,15 @@ SELECT ?ingredient_name ?trigeminal_label ?sensory_value WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_name (GROUP_CONCAT(DISTINCT ?functional_benefit; SEPARATOR = ", ") AS ?functional_benefits) WHERE {
     ?i a :Ingredient ;
-       skos:prefLabel ?ingredient_name ;
-       :hasFunctionalBenefit ?f .
+        skos:prefLabel ?ingredient_name ;
+        :hasFunctionalBenefit ?f .
     ?f a :FunctionalBenefit ;
-       skos:prefLabel ?functional_benefit .
-} GROUP BY ?ingredient_name ORDER BY ?ingredient_name
+        skos:prefLabel ?functional_benefit .
+}
+GROUP BY ?ingredient_name ORDER BY ?ingredient_name
 ```
 
 </details>
@@ -258,14 +274,16 @@ SELECT ?ingredient_name (GROUP_CONCAT(DISTINCT ?functional_benefit; SEPARATOR = 
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?functional_benefit ?functional_benefit_definition WHERE {
     ?i a :Ingredient ;
-       skos:prefLabel "Vodka"@en ;
-       :hasFunctionalBenefit ?f .
+        skos:prefLabel "Vodka"@en ;
+        :hasFunctionalBenefit ?f .
     ?f a :FunctionalBenefit ;
-       skos:prefLabel ?functional_benefit ;
-       skos:definition ?functional_benefit_definition .
-} ORDER BY ?functional_benefit
+        skos:prefLabel ?functional_benefit ;
+        skos:definition ?functional_benefit_definition .
+}
+ORDER BY ?functional_benefit
 ```
 
 </details>
@@ -276,12 +294,14 @@ SELECT ?functional_benefit ?functional_benefit_definition WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?functional_benefit (COUNT(DISTINCT ?i) AS ?ingredient_count) WHERE {
     ?i a :Ingredient ;
-       :hasFunctionalBenefit ?f .
+        :hasFunctionalBenefit ?f .
     ?f a :FunctionalBenefit ;
-       skos:prefLabel ?functional_benefit .
-} GROUP BY ?functional_benefit ORDER BY DESC(?ingredient_count) LIMIT 10
+        skos:prefLabel ?functional_benefit .
+}
+GROUP BY ?functional_benefit ORDER BY DESC(?ingredient_count) LIMIT 10
 ```
 
 </details>
@@ -294,13 +314,15 @@ SELECT ?functional_benefit (COUNT(DISTINCT ?i) AS ?ingredient_count) WHERE {
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_pairing ?key_ingredient ?related_ingredient ?foodpairing_match_score WHERE {
     ?p a :IngredientPairing ;
-       skos:prefLabel ?ingredient_pairing ;
-       :hasKeyIngredient/skos:prefLabel ?key_ingredient ;
-       :hasRelatedIngredient/skos:prefLabel ?related_ingredient ;
-       :matchScore ?foodpairing_match_score .
-} ORDER BY ?key_ingredient DESC(?foodpairing_match_score)
+        skos:prefLabel ?ingredient_pairing ;
+        :hasKeyIngredient/skos:prefLabel ?key_ingredient ;
+        :hasRelatedIngredient/skos:prefLabel ?related_ingredient ;
+        :matchScore ?foodpairing_match_score .
+}
+ORDER BY ?key_ingredient DESC(?foodpairing_match_score)
 ```
 
 </details>
@@ -311,17 +333,20 @@ SELECT ?ingredient_pairing ?key_ingredient ?related_ingredient ?foodpairing_matc
 ```sparql
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
 SELECT ?ingredient_pairing ?related_ingredient ?foodpairing_match_score WHERE {
     ?p a :IngredientPairing ;
-       skos:prefLabel ?ingredient_pairing ;
-       :hasKeyIngredient/skos:prefLabel "Strawberry"@en ;
-       :hasRelatedIngredient/skos:prefLabel ?related_ingredient ;
-       :matchScore ?foodpairing_match_score .
-} ORDER BY DESC(?foodpairing_match_score) LIMIT 10
+        skos:prefLabel ?ingredient_pairing ;
+        :hasKeyIngredient/skos:prefLabel "Strawberry"@en ;
+        :hasRelatedIngredient/skos:prefLabel ?related_ingredient ;
+        :matchScore ?foodpairing_match_score .
+}
+ORDER BY DESC(?foodpairing_match_score) LIMIT 10
 ```
 
 </details>
 
 ## Wanna See More?
 
-In case you detect any problems or if you would like to have more information added to the Inspire KG, please do not hesitate [to create an issue](https://github.com/foodpairing/inspire_kg/issues), and we will shortly try to address it.
+In case you detect any problems or if you would like to have more information added to the Inspire KG, please do not
+hesitate [to create an issue](https://github.com/foodpairing/inspire_kg/issues), and we will shortly try to address it.
