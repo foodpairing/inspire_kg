@@ -165,7 +165,7 @@ ORDER BY ?ingredient_name ?water_footprint
 PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-SELECT ?ingredient_name ?aroma_label ?sensory_value ?aroma_intensity WHERE {
+SELECT ?ingredient_name ?aroma_label ?sensory_value WHERE {
     ?i a :Ingredient ;
         skos:prefLabel ?ingredient_name ;
         :hasAroma ?a .
@@ -173,8 +173,7 @@ SELECT ?ingredient_name ?aroma_label ?sensory_value ?aroma_intensity WHERE {
         :sensoryValue ?sensory_value ;
         :hasSensoryDescriptor ?d .
     ?d a :SensoryDescriptor ;
-        skos:prefLabel ?aroma_label ;
-        :aromaIntensity ?aroma_intensity .
+        skos:prefLabel ?aroma_label .
 }
 ORDER BY ?ingredient_name DESC(?sensory_value)
 ```
