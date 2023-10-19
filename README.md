@@ -181,6 +181,27 @@ ORDER BY ?ingredient_name DESC(?sensory_value)
 </details>
 
 <details>
+ <summary>Retrieve the 3 most dominant aromas for an ingredient</summary>
+
+```sparql
+PREFIX : <https://w3id.org/foodpairing_inspire_kg#>
+
+SELECT ?aroma_label ?sensory_value WHERE {
+    ?i a :Ingredient ;
+        skos:prefLabel "Basil Leaf"@en ;
+        :hasAroma ?a .
+    ?a a :Aroma ;
+        :sensoryValue ?sensory_value ;
+        :hasSensoryDescriptor ?d .
+    ?d a :SensoryDescriptor ;
+        skos:prefLabel ?aroma_label .
+}
+ORDER BY DESC(?sensory_value) LIMIT 3
+```
+
+</details>
+
+<details>
  <summary>Retrieve taste information per ingredient</summary>
 
 ```sparql
