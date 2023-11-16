@@ -1,0 +1,108 @@
+PREFIX retr: <http://www.ontotext.com/connectors/retrieval#>
+PREFIX retr-index: <http://www.ontotext.com/connectors/retrieval/instance#>
+
+INSERT DATA {
+    retr-index:inspire_kg retr:createConnector '''
+{
+  "retrievalUrl": "http://localhost:8000",
+  "retrievalBearerToken": "<your-bearer-token>",
+  "fields": [
+    {
+      "fieldName": "subject",
+      "propertyChain": [
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "type",
+      "propertyChain": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "fieldTextPrefix": "is a"
+    },
+    {
+      "fieldName": "broader",
+      "propertyChain": [
+        "http://www.w3.org/2004/02/skos/core#broader",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ],
+      "fieldTextPrefix": "has supercategory {}"
+    },
+    {
+      "fieldName": "hasAroma",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasAroma",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "hasAromaType",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasAromaType",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "hasFunctionalBenefit",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasFunctionalBenefit",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "hasIngredientCategory",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasIngredientCategory",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "pairsWith",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#pairsWith",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "hasTaste",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasTaste",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "hasTexture",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasTexture",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "hasTrigeminal",
+      "propertyChain": [
+        "https://w3id.org/foodpairing_inspire_kg#hasTrigeminal",
+        "http://www.w3.org/2004/02/skos/core#prefLabel"
+      ]
+    },
+    {
+      "fieldName": "text",
+      "propertyChain": [
+        "http://www.w3.org/2004/02/skos/core#definition"
+      ]
+    }
+  ],
+  "types": [
+    "https://w3id.org/foodpairing_inspire_kg#Aroma",
+    "https://w3id.org/foodpairing_inspire_kg#AromaType",
+    "https://w3id.org/foodpairing_inspire_kg#FunctionalBenefit",
+    "https://w3id.org/foodpairing_inspire_kg#Ingredient",
+    "https://w3id.org/foodpairing_inspire_kg#IngredientCategory",
+    "https://w3id.org/foodpairing_inspire_kg#Taste",
+    "https://w3id.org/foodpairing_inspire_kg#Texture",
+    "https://w3id.org/foodpairing_inspire_kg#Trigeminal",
+  ],
+  "languages": [ "en" ]
+}
+''' .
+}
